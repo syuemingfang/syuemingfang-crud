@@ -43,41 +43,61 @@
 ;(function($){
   $.extend({
     crud: {
-      version: '0.1.0.1',
+      version: '0.1.0.2',
       //! 
       //!## API
       create: function(set){
       //!+ **create()**
-      // arguments: name, data
-        localStorage.setItem(set.name, JSON.stringify(set.data));
+      //! arguments: name, id, data, range
+        if(set.range == 'all'){
+          localStorage.setItem(set.name, JSON.stringify(set.data));
+        } else{
+          var item=JSON.parse(localStorage.getItem(set.name));
+          if(item == null){
+            var arr=[];
+            arr.push(set.data);
+            item=arr;
+          } else{
+            item.push(set.data);
+          }
+          localStorage.setItem(set.name, JSON.stringify(item));
+        }
       },
       read: function(set){
       //!+ **read()**
-      // arguments: name
+      //! arguments: name
         var itme=JSON.parse(localStorage.getItem(set.name));
         return itme;
       },
       update: function(set){
       //!+ **update()**
-      // arguments: name, id, data
+      //! arguments: name, key, val, data
         var itme=JSON.parse(localStorage.getItem(set.name));
         for(var i in itme){
-          if(i == set.id){
-            itme[i]=set.data;
+          for(var j in itme[i]){
+            if((j == set.key)&&(itme[i][j] == set.val)){
+              itme[i]=set.data;
+            }
           }
         }
         localStorage.setItem(set.name, JSON.stringify(itme));
       },
       delete: function(set){
       //!+ **read()**
-      // arguments: name, id
-        var itme=JSON.parse(localStorage.getItem(set.name));
-        for(var i in itme){
-          if(i == set.id){
-            delete itme[i];
+      //! arguments: name, key, val, range
+        if(set.range == 'all'){
+          localStorage.setItem(set.name, []);
+        } else{
+          var itme=JSON.parse(localStorage.getItem(set.name));
+          for(var i in itme){
+            for(var j in itme[i]){
+              if((j == set.key)&&(itme[i][j] == set.val)){
+                itme.splice(i, 1);
+              }
+            }
           }
+          localStorage.setItem(set.name, JSON.stringify(itme));
         }
-        localStorage.setItem(set.name, JSON.stringify(itme));
       }
     }
   });

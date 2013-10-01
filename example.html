@@ -18,17 +18,23 @@
         <script type='text/javascript' src='https://syuemingfang-crud.googlecode.com/git/js/crud.js'></script>
         <script type='text/javascript' src='js/crud.js'></script>
         <script>
-        var data={
-          1:{
+
+        var data=[{
+            'id': '1',
             'name': 'Tom',
             'age': '20'
-          },
-          2:{
+        },{
+            'id': '2',
             'name': 'Jack',
-            'age': '21'             
-          }
-        }
+            'age': '21'
+        }]
+        $.crud.create({name:'crud_plugin', range:'all', data: data});
         $('#create').click(function(){
+          var data={
+              'id': '3',
+              'name': 'Sam',
+              'age': '25'
+          }
           $.crud.create({name:'crud_plugin', data: data});
         });
         $('#read').click(function(){
@@ -36,13 +42,14 @@
         });
         $('#update').click(function(){
           var data={
+            'id': '1',
             'name': 'Frank',
             'age': '30'             
           }
-          $.crud.update({name:'crud_plugin', id: 2, data: data});
+          $.crud.update({name:'crud_plugin', key: 'id', val: '1', data: data});
         });   
         $('#delete').click(function(){
-          $.crud.delete({name:'crud_plugin', id: 1});
+          $.crud.delete({name:'crud_plugin', key: 'id', val: '2'});
         });   
         </script>
       </div>
