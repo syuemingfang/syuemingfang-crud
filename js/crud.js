@@ -43,7 +43,7 @@
 ;(function($){
   $.extend({
     crud: {
-      version: '0.1.0.0',
+      version: '0.1.0.1',
       //! 
       //!## API
       create: function(set){
@@ -58,8 +58,7 @@
         return itme;
       },
       update: function(set){
-      read: function(set){
-      //!+ **read()**
+      //!+ **update()**
       // arguments: name, id, data
         var itme=JSON.parse(localStorage.getItem(set.name));
         for(var i in itme){
