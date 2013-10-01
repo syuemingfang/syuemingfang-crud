@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="http://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<script src='https://code.jquery.com/jquery-1.8.3.min.js'></script>
+<script src="http://getbootstrap.com/dist/js/bootstrap.js"></script>
+<title>Example</title>
+</head>
+<body>
+  <div class='container'>
+    <div class='row'>
+      <div class='col-md-12'>
+        <h1>Example</h1>
+        <input type='button' class='btn' id='create' value='create'/>
+        <input type='button' class='btn' id='read' value='read'/>
+        <input type='button' class='btn' id='update' value='update'/>
+        <input type='button' class='btn' id='delete' value='delete'/>
+        <script type='text/javascript' src='https://code.google.com/p/syuemingfang-crud/source/browse/js/crud.js'></script>
+        <script type='text/javascript' src='js/crud.js'></script>
+        <script>
+        var data={
+          1:{
+            'name': 'Tom',
+            'age': '20'
+          },
+          2:{
+            'name': 'Jack',
+            'age': '21'             
+          }
+        }
+        $('#create').click(function(){
+          $.crud.create({name:'crud_plugin', data: data});
+        });
+        $('#read').click(function(){
+          console.log($.crud.read({name:'crud_plugin'}));
+        });
+        $('#update').click(function(){
+          var data={
+            'name': 'Frank',
+            'age': '30'             
+          }
+          $.crud.update({name:'crud_plugin', id: 2, data: data});
+        });   
+        $('#delete').click(function(){
+          $.crud.delete({name:'crud_plugin', id: 1});
+        });   
+        </script>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
